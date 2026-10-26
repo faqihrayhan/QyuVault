@@ -1,0 +1,1 @@
+Got it — you want to paste your full prompt and have me flag anything that's unclear or missing before we plan. Go ahead and share the full description of what QyuVault should do, and I'll ask targeted questions if anything needs clarification.

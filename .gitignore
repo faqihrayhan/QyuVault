@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Build outputs
+dist/
+dist-ssr/
+
+# Foundry build artifacts
+contracts/out/
+contracts/cache/
+out/
+cache/
+
+# Environment files
+.env
+.env*.local
+!.env.example
+
+# Logs and traces
+*.log
+console.jsonl
+
+# System files
+.DS_Store
+Thumbs.db
