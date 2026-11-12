@@ -3,7 +3,7 @@
  */
 import { useState } from 'react'
 import { isAddress } from 'viem'
-import { Key, Vault, HelpCircle } from 'lucide-react'
+import { Key, HelpCircle } from 'lucide-react'
 import { validateHexBytes } from '../lib/qyuvault'
 
 interface Props {

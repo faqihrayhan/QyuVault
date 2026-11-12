@@ -1,5 +1,4 @@
 import { ConnectKitButton } from 'connectkit'
-import { Shield } from 'lucide-react'
 import { useAccount, useSwitchChain } from 'wagmi'
 import { arcMainnet } from '../config'
 import { arcTestnet } from 'viem/chains'
