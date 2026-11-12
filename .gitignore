@@ -24,3 +24,6 @@ console.jsonl
 # System files
 .DS_Store
 Thumbs.db
+
+# Arc Studio CLI local cache & manifests
+.arc-studio/
