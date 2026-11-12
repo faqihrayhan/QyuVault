@@ -7,7 +7,7 @@ import { erc20Abi, parseUnits, formatUnits, type Address } from 'viem'
 import { ArrowDownToLine, ExternalLink, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import { QYUVAULT_ABI, ARC_USDC, shortBytes32, parseVaultError } from '../lib/qyuvault'
-import { buildTxExplorerUrl } from '@/onchain-facts'
+import { buildTxExplorerUrl } from '../lib/explorer'
 
 interface Props {
   vaultAddress: Address

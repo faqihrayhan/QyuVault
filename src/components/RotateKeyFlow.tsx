@@ -7,7 +7,7 @@ import { type Address } from 'viem'
 import { ArrowRight, ClipboardCopy, ExternalLink, CheckCircle2, AlertCircle, RotateCcw } from 'lucide-react'
 import { toast } from 'sonner'
 import { QYUVAULT_ABI, PQ_SIG_BYTES, validateHexBytes, parseVaultError } from '../lib/qyuvault'
-import { buildTxExplorerUrl } from '@/onchain-facts'
+import { buildTxExplorerUrl } from '../lib/explorer'
 
 interface Props {
   vaultAddress: Address
