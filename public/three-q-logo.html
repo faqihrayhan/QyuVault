@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #FFFFFF;
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #canvas-container {
+    width: 600px;
+    height: 600px;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<div id="canvas-container"></div>
+
+<script>
+  const width = 600;
+  const height = 600;
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xffffff);
+
+  const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+  camera.position.set(0, 0, 8.2);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(2);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+  // Studio Lighting setup
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+  scene.add(ambientLight);
+
+  // Key light (strong top-left studio softbox)
+  const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
+  keyLight.position.set(-6, 7, 7);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.width = 2048;
+  keyLight.shadow.mapSize.height = 2048;
+  keyLight.shadow.bias = -0.0005;
+  scene.add(keyLight);
+
+  // Subtle colored rim light (slate-blue)
+  const rimLight = new THREE.DirectionalLight(0xe0e7ff, 1.8);
+  rimLight.position.set(7, -5, 4);
+  scene.add(rimLight);
+
+  // Front fill light
+  const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  fillLight.position.set(0, 2, 6);
+  scene.add(fillLight);
+
+  // Shadow plane
+  const floorGeo = new THREE.PlaneGeometry(30, 30);
+  const floorMat = new THREE.ShadowMaterial({ opacity: 0.16 });
+  const floor = new THREE.Mesh(floorGeo, floorMat);
+  floor.position.set(0, 0, -0.6);
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  // Rounded Box / Squircle function
+  function createRoundedBox(w, h, r, d) {
+    const shape = new THREE.Shape();
+    const x = -w / 2;
+    const y = -h / 2;
+    shape.moveTo(x + r, y);
+    shape.lineTo(x + w - r, y);
+    shape.quadraticCurveTo(x + w, y, x + w, y + r);
+    shape.lineTo(x + w, y + h - r);
+    shape.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    shape.lineTo(x + r, y + h);
+    shape.quadraticCurveTo(x, y + h, x, y + h - r);
+    shape.lineTo(x, y + r);
+    shape.quadraticCurveTo(x, y, x + r, y);
+
+    return new THREE.ExtrudeGeometry(shape, {
+      depth: d,
+      bevelEnabled: true,
+      bevelSegments: 20,
+      steps: 2,
+      bevelSize: 0.22,
+      bevelThickness: 0.22
+    });
+  }
+
+  // Pure Luxury Smoked Obsidian Glass Material
+  const blackGlassMat = new THREE.MeshPhysicalMaterial({
+    color: 0x121418,
+    emissive: 0x050608,
+    roughness: 0.1,
+    metalness: 0.12,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.05,
+    transmission: 0.45,
+    ior: 1.54,
+    reflectivity: 0.95,
+    transparent: true,
+    opacity: 0.97
+  });
+
+  const blockGeo = createRoundedBox(3.5, 3.5, 0.8, 0.45);
+  blockGeo.center();
+  const blockMesh = new THREE.Mesh(blockGeo, blackGlassMat);
+  blockMesh.castShadow = true;
+  blockMesh.receiveShadow = true;
+  scene.add(blockMesh);
+
+  // Build a true, iconic Letter "Q" (Unified Shape)
+  const qShape = new THREE.Shape();
+  
+  // Outer circle points + tail
+  // Center is (-0.08, 0.08) to optically balance the tail
+  const cx = -0.08;
+  const cy = 0.08;
+  const R = 1.05;
+  const r = 0.58;
+
+  // Let us draw the outer perimeter of Q
+  // From angle -Math.PI/6 to 3*Math.PI/2 + something, connected to tail
+  // Or even cleaner: Ring with holes + prominent overlapping extruded tail
+  qShape.absarc(cx, cy, R, 0, Math.PI * 2, false);
+  const qHole = new THREE.Path();
+  qHole.absarc(cx, cy, r, 0, Math.PI * 2, true);
+  qShape.holes.push(qHole);
+
+  const qExtrudeSettings = {
+    depth: 0.16,
+    bevelEnabled: true,
+    bevelSegments: 10,
+    steps: 1,
+    bevelSize: 0.04,
+    bevelThickness: 0.04
+  };
+
+  const qRingGeo = new THREE.ExtrudeGeometry(qShape, qExtrudeSettings);
+  qRingGeo.center();
+
+  // Ceramic Satin White Material with subtle luminescence
+  const whiteCeramicMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    roughness: 0.15,
+    metalness: 0.02,
+    clearcoat: 0.9,
+    clearcoatRoughness: 0.1
+  });
+
+  const qGroup = new THREE.Group();
+
+  const qRingMesh = new THREE.Mesh(qRingGeo, whiteCeramicMat);
+  qRingMesh.castShadow = true;
+  qGroup.add(qRingMesh);
+
+  // Prominent, thick, rounded diagonal tail for Q
+  const tailShape = new THREE.Shape();
+  const tw = 0.44;
+  const tlen = 1.05;
+  const tr = 0.22; // full round pill cap
+
+  tailShape.moveTo(-tw/2 + tr, 0);
+  tailShape.lineTo(tw/2 - tr, 0);
+  tailShape.quadraticCurveTo(tw/2, 0, tw/2, tr);
+  tailShape.lineTo(tw/2, tlen - tr);
+  tailShape.quadraticCurveTo(tw/2, tlen, tw/2 - tr, tlen);
+  tailShape.lineTo(-tw/2 + tr, tlen);
+  tailShape.quadraticCurveTo(-tw/2, tlen, -tw/2, tlen - tr);
+  tailShape.lineTo(-tw/2, tr);
+  tailShape.quadraticCurveTo(-tw/2, 0, -tw/2 + tr, 0);
+
+  const tailGeo = new THREE.ExtrudeGeometry(tailShape, qExtrudeSettings);
+  tailGeo.center();
+
+  const tailMesh = new THREE.Mesh(tailGeo, whiteCeramicMat);
+  tailMesh.rotation.z = -Math.PI / 3.8;
+  tailMesh.position.set(0.65, -0.62, 0.02);
+  tailMesh.castShadow = true;
+  qGroup.add(tailMesh);
+
+  qGroup.position.set(0, 0, 0.28);
+  scene.add(qGroup);
+
+  // Subtle isometric tilt for 3D realism
+  const tiltX = 0.06;
+  const tiltY = -0.08;
+  blockMesh.rotation.x = tiltX;
+  blockMesh.rotation.y = tiltY;
+  qGroup.rotation.x = tiltX;
+  qGroup.rotation.y = tiltY;
+
+  renderer.render(scene, camera);
+  console.log("RENDER_DONE");
+</script>
+
+</body>
+</html>

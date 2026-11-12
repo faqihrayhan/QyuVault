@@ -11,8 +11,10 @@ interface Props {
 }
 
 export default function SetupScreen({ onSetup }: Props) {
-  const [vaultAddr, setVaultAddr] = useState('')
-  const [pqKey, setPqKey] = useState('')
+  // Alamat contract QyuVault yang telah dideploy di Arc Testnet
+  const [vaultAddr, setVaultAddr] = useState('0x3bdb3c8646e60390b3e3aafdb238b2538f5a771c')
+  // Placeholder SLH-DSA public key 32-byte untuk verifikasi awal
+  const [pqKey, setPqKey] = useState('0x0000000000000000000000000000000000000000000000000000000000000001')
   const [errors, setErrors] = useState<{ vault?: string; key?: string }>({})
 
   function validate(): boolean {
@@ -37,8 +39,13 @@ export default function SetupScreen({ onSetup }: Props) {
     <div className="max-w-md mx-auto px-4 py-10">
       {/* Hero */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-900 mb-4">
-          <Vault size={32} className="text-white" />
+        {/* Logo QyuVault */}
+        <div className="inline-flex items-center justify-center mb-4">
+          <img
+            src="/qyuvault-logo-512.png"
+            alt="QyuVault Logo"
+            className="w-16 h-16 rounded-2xl shadow-sm object-contain"
+          />
         </div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
           Connect to your vault

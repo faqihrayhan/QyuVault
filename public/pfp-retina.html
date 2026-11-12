@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1024px;
+    height: 1024px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .stage {
+    width: 1024px;
+    height: 1024px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Natural ambient & contact drop shadows */
+  .shadow-diffuse {
+    position: absolute;
+    width: 660px;
+    height: 140px;
+    background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.22) 0%, rgba(15, 23, 42, 0.06) 50%, transparent 75%);
+    bottom: 125px;
+    filter: blur(32px);
+    border-radius: 50%;
+  }
+  .shadow-direct {
+    position: absolute;
+    width: 550px;
+    height: 60px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.38) 0%, transparent 70%);
+    bottom: 152px;
+    filter: blur(16px);
+  }
+
+  /* The Black Glass Block */
+  .glass-card {
+    width: 680px;
+    height: 680px;
+    border-radius: 160px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #252932 0%, #13151A 50%, #090A0D 100%);
+    box-shadow: 
+      0 64px 128px -32px rgba(0, 0, 0, 0.45),
+      0 32px 64px -24px rgba(0, 0, 0, 0.35),
+      inset 0 2px 3px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -4px 8px 0 rgba(0, 0, 0, 0.95),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  /* Specular glossy highlight reflection curve across the top */
+  .specular-sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 360px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.05) 45%, transparent 65%);
+    border-top-left-radius: 160px;
+    border-top-right-radius: 160px;
+    pointer-events: none;
+  }
+
+  /* Subtle bottom rim reflection */
+  .bottom-rim {
+    position: absolute;
+    bottom: 2px;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    filter: blur(1px);
+  }
+
+  svg {
+    position: relative;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="shadow-diffuse"></div>
+  <div class="shadow-direct"></div>
+
+  <div class="glass-card">
+    <div class="specular-sheen"></div>
+    <div class="bottom-rim"></div>
+
+    <!-- Letter Q: Ultra sharp 1024px scale -->
+    <svg width="380" height="380" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Pure frosted ceramic white gradient -->
+        <linearGradient id="qBody" x1="20%" y1="0%" x2="80%" y2="100%">
+          <stop offset="0%" stop-color="#FFFFFF" />
+          <stop offset="70%" stop-color="#F1F5F9" />
+          <stop offset="100%" stop-color="#CBD5E1" />
+        </linearGradient>
+
+        <!-- Crisp top-edge light highlight stroke -->
+        <linearGradient id="qBevel" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+          <stop offset="50%" stop-color="#94A3B8" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#334155" stop-opacity="0.2" />
+        </linearGradient>
+
+        <filter id="qDepth" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.65" />
+          <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.45" />
+        </filter>
+      </defs>
+
+      <!-- Seamless Letter Q Compound Path -->
+      <g filter="url(#qDepth)">
+        <path 
+          fill-rule="evenodd" 
+          clip-rule="evenodd" 
+          d="
+            M 95 24 
+            C 55.787 24 24 55.787 24 95 
+            C 24 134.213 55.787 166 95 166 
+            C 111.455 166 126.621 160.407 138.742 151.002 
+            L 155.879 168.138 
+            C 160.565 172.825 168.163 172.825 172.849 168.138 
+            C 177.535 163.452 177.535 155.854 172.849 151.168 
+            L 156.402 134.721 
+            C 162.484 123.111 166 109.845 166 95 
+            C 166 55.787 134.213 24 95 24 
+            Z 
+            M 95 54 
+            C 117.644 54 136 72.356 136 95 
+            C 136 117.644 117.644 136 95 136 
+            C 72.356 136 54 117.644 54 95 
+            C 54 72.356 72.356 54 95 54 
+            Z
+          " 
+          fill="url(#qBody)"
+          stroke="url(#qBevel)"
+          stroke-width="1.2"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+
+</body>
+</html>

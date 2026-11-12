@@ -39,10 +39,13 @@ export default function App() {
 
       {!isConnected ? (
         <div className="max-w-md mx-auto px-4 py-20 text-center">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-slate-900 items-center justify-center mb-6">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
+          {/* Logo brand utama saat wallet belum terhubung */}
+          <div className="inline-flex items-center justify-center mb-6">
+            <img
+              src="/qyuvault-logo-512.png"
+              alt="QyuVault Logo"
+              className="w-20 h-20 rounded-2xl shadow-md object-contain"
+            />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             QyuVault

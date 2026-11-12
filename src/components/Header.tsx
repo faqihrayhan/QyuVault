@@ -16,11 +16,14 @@ export default function Header() {
   return (
     <header className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-slate-900 flex items-center justify-center">
-            <Shield size={16} className="text-white" />
-          </div>
+        {/* Brand Logo & Name */}
+        <div className="flex items-center gap-2.5">
+          {/* Logo brand resmi QyuVault */}
+          <img
+            src="/qyuvault-logo-512.png"
+            alt="QyuVault Logo"
+            className="w-8 h-8 rounded-lg object-contain shadow-sm"
+          />
           <span className="font-semibold text-slate-900 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             QyuVault
           </span>
