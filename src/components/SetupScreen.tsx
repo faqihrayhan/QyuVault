@@ -44,7 +44,7 @@ export default function SetupScreen({ onSetup }: Props) {
           <img
             src="/qyuvault-logo-512.png"
             alt="QyuVault Logo"
-            className="w-16 h-16 rounded-2xl shadow-sm object-contain"
+            className="w-16 h-16 object-contain drop-shadow-sm"
           />
         </div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>

@@ -44,7 +44,7 @@ export default function App() {
             <img
               src="/qyuvault-logo-512.png"
               alt="QyuVault Logo"
-              className="w-20 h-20 rounded-2xl shadow-md object-contain"
+              className="w-20 h-20 object-contain drop-shadow-md"
             />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>

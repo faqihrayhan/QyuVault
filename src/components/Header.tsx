@@ -21,7 +21,7 @@ export default function Header() {
           <img
             src="/qyuvault-logo-512.png"
             alt="QyuVault Logo"
-            className="w-8 h-8 rounded-lg object-contain shadow-sm"
+            className="w-8 h-8 object-contain drop-shadow-sm"
           />
           <span className="font-semibold text-slate-900 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             QyuVault
