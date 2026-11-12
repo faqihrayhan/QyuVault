@@ -42,7 +42,7 @@ export default function App() {
           {/* Logo brand utama saat wallet belum terhubung */}
           <div className="inline-flex items-center justify-center mb-6">
             <img
-              src="/qyuvault-logo-512.png"
+              src="/qyuvault-logo-app.png"
               alt="QyuVault Logo"
               className="w-20 h-20 object-contain drop-shadow-md"
             />

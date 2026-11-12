@@ -42,7 +42,7 @@ export default function SetupScreen({ onSetup }: Props) {
         {/* Logo QyuVault */}
         <div className="inline-flex items-center justify-center mb-4">
           <img
-            src="/qyuvault-logo-512.png"
+            src="/qyuvault-logo-app.png"
             alt="QyuVault Logo"
             className="w-16 h-16 object-contain drop-shadow-sm"
           />

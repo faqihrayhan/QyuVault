@@ -19,7 +19,7 @@ export default function Header() {
         <div className="flex items-center gap-2.5">
           {/* Logo brand resmi QyuVault */}
           <img
-            src="/qyuvault-logo-512.png"
+            src="/qyuvault-logo-app.png"
             alt="QyuVault Logo"
             className="w-8 h-8 object-contain drop-shadow-sm"
           />
